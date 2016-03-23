@@ -33,4 +33,14 @@ class BacklogService
   def get_issue_types(projectId)
     @client.get_issue_types(projectId).body
   end
+
+  def get_issues(params)
+    Rails.logger.debug params
+    params.delete_if do |key, val|
+      ['controller', 'action'].include? key
+    end
+    params['statusId'] = ['1', '2', '3']
+
+    @client.get_issues(params).body
+  end
 end
