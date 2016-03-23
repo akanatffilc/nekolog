@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
     user = User.where(email: auth.info.email).first
 
     if user
-      user.token = auth.credentials.token
+      user.access_token = auth.credentials.token
       user.refresh_token = auth.credentials.refresh_token
       user.save()
     else
