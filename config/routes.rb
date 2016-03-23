@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources 'projects'
+  get 'issue_types/:projectId' => 'issue_types#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

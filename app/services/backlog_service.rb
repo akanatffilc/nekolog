@@ -29,4 +29,8 @@ class BacklogService
   def get_projects
     @client.get_projects.body
   end
+
+  def get_issue_types(projectId)
+    @client.get_issue_types(projectId).body
+  end
 end
