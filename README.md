@@ -15,4 +15,8 @@ development:
   backlog_client_secret: nnxvULmVpJEMH3m6A4msnfR13p9JhoYaIfL4rNvVXBxzH8yFqsib3FawR0jj7AVb
 $ bundle exec rake db:migrate
 
+Angular
+$ cd nekolog/app/assets/angular2
+$ npm install
+$ npm start 
 ```
