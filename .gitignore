@@ -19,6 +19,3 @@ vendor/bundle
 
 # secrets
 config/secrets.yml
-
-# node_modules
-app/assets/angular2/node_modules
