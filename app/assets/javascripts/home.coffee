@@ -10,4 +10,4 @@ $ ->
       console.error(status, error)
     success: (data, status, xhr) ->
       for p in data.projects
-        $('#projects').append('<li>' + p.attributes.name + '</li>')
+        $('#projects').append('<option>' + p.attributes.name + '</option>')
