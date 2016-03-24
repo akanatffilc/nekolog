@@ -27,6 +27,7 @@ $ ->
           if (-1 != data.checked_types.indexOf(t.attributes.id))
             checkbox += ' checked="checked"'
           checkbox += '>' + t.attributes.name
+          checkbox += '<br>'
           $('#issue_types').append(checkbox)
 
   $('#save_button').click ->
