@@ -27,6 +27,7 @@ $ ->
           if (-1 != data.checked_types.indexOf(t.attributes.id))
             checkbox += ' checked="checked"'
           checkbox += '>' + t.attributes.name
+          checkbox += '<br>'
           $('#issue_types').append(checkbox)
 
   $('#save_button').click ->
@@ -43,3 +44,13 @@ $ ->
         console.error(status, error)
       success: (xhr, status, data) ->
         console.log(status, data)
+
+  $("#projects").change ->
+    $(".inner-intro").animate
+        left: '-=400'
+        500
+
+  $(".projects-back").click ->
+    $(".inner-intro").animate
+        left: '+=400'
+        500

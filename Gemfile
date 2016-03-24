@@ -42,7 +42,7 @@ gem 'backlog_kit'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular'
-  gem "rails-assets-angular-route" , "1.5.0"
+  gem "rails-assets-angular-route"
 end
 
 group :development, :test do
