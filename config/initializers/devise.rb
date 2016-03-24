@@ -267,5 +267,5 @@ Devise.setup do |config|
   config.omniauth :backlog,
                   Rails.application.secrets.backlog_client_id,
                   Rails.application.secrets.backlog_client_secret,
-                  :space_id => 'globaldev'
+                  :space_id => Rails.application.secrets.backlog_space_id
 end
