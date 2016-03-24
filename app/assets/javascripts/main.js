@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('nekolog').controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+angular.module('nekolog')
+.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
     var $uri ='/api/v2/projects';
 
