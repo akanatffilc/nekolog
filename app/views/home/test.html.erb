@@ -1,11 +1,11 @@
-<div class="container" ng-controller="MainCtrl">
+<div class="container">
   <h1>Nekolog</h1>
 
-  <select id="projects" >
+  <select id="projects" ng-controller="MainCtrl">
     <option value="">Choose project</option>
   </select>
 
-  <div id="issue_types">
+  <div id="issue_types" ng-controller="IssueCtrl">
   </div>
   <button type="button" id="save_button" ng-submit="doSearch()">Save</button>
 
