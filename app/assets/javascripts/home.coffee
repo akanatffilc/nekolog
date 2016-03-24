@@ -44,3 +44,13 @@ $ ->
         console.error(status, error)
       success: (xhr, status, data) ->
         console.log(status, data)
+
+  $("#projects").change ->
+    $(".inner-intro").animate
+        left: '-=400'
+        500
+
+  $(".projects-back").click ->
+    $(".inner-intro").animate
+        left: '+=400'
+        500

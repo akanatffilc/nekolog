@@ -16,19 +16,3 @@
 //= require angular-route
 //= require turbolinks
 //= require_tree .
-$(function(){
-	$("#projects").change(function(){
-		$(".inner-intro").animate({
-		    left: "-=400",
-	  	}, 500, function() {
-		    
-	  	});
-	});
-	$(".projects-back").click(function(){
-		$(".inner-intro").animate({
-		    left: "+=400",
-	  	}, 500, function() {
-		    
-	  	});
-	});
-});
