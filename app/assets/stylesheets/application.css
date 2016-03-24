@@ -55,10 +55,18 @@ body, input, button {
 }
 
 .login {
-  padding: 15px;
+  padding: 15px 40px;
   width: 400px;
-  min-height: 400px;
-  margin: 2% auto 0 auto;
+  min-height: 200px;
+  margin: 10% auto 0 auto;
+  border-radius: 30px;
+  color: white;
+  background: #adc43a; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  #adc43a 0%, #8abe00 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  #adc43a 0%,#8abe00 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  #adc43a 0%,#8abe00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#adc43a', endColorstr='#8abe00',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 
   .heading {
     text-align: center;
@@ -129,7 +137,14 @@ body, input, button {
     }
   }
 }
-
+.login_button {
+  width: 235px;
+  height: 68px;
+  background-image: url(/images/login_button.png);
+  display: inline-block;
+  margin: 50px 47px;
+  text-align: center;
+}
 .float {
   display: inline-block;
   -webkit-transition-duration: 0.3s;
