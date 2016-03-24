@@ -21,21 +21,25 @@ $ ->
       error: (xhr, status, error) ->
         console.error(status, error)
       success: (data, status, xhr) ->
+        console.log(data.checked_types)
         for t in data.issue_types
-          $('#issue_types').append('<input type="checkbox" class="issue_type" value="' + t.attributes.id + '">' + t.attributes.name)
+          checkbox = '<input type="checkbox" class="issue_type" value="' + t.attributes.id + '"'
+          if (-1 != data.checked_types.indexOf(t.attributes.id))
+            checkbox += ' checked="checked"'
+          checkbox += '>' + t.attributes.name
+          $('#issue_types').append(checkbox)
 
-  $(document).on 'click', '.issue_type', ->
+  $('#save_button').click ->
     issueTypeIds = []
     $('.issue_type:checked').each ->
       issueTypeIds.push($(@).val())
 
     $('#issues').empty()
-    $.ajax '/issues',
-      type: 'GET'
+    $.ajax '/issue_types/' + $('#projects').val(),
+      type: 'PUT'
       dataType: 'json',
-      data: {"projectId[]": $('#projects').val(), "issueTypeId[]": issueTypeIds},
+      data: {"issueTypeId[]": issueTypeIds},
       error: (xhr, status, error) ->
         console.error(status, error)
       success: (data, status, xhr) ->
-        for i in data.issues
-          $('#issues').append('<li>' + i.attributes.summary + '</li>')
+        console.error(status, data)
