@@ -41,5 +41,5 @@ $ ->
       data: {"issueTypeId[]": issueTypeIds},
       error: (xhr, status, error) ->
         console.error(status, error)
-      success: (data, status, xhr) ->
+      success: (xhr, status, data) ->
         console.log(status, data)
