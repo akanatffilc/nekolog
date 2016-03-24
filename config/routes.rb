@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources 'issues'
 
-  get 'dashboard/index'
+  resources 'dashboard'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
