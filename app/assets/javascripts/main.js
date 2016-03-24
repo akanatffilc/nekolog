@@ -5,7 +5,7 @@ var app = angular.module('nekolog' , []);
 //Projects
 app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
-    var $uri ='/api/v2/projects';
+    var $uri ='/projects';
 
     $scope.doSearch = function() {
 
@@ -25,7 +25,7 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
 //Issue
 app.controller('IssueCtrl', ['$scope', '$http', function ($scope, $http) {
-    var $uri ='/api/v2/issues';
+    var $uri ='/issues';
     $scope.doSearch = function() {
         $http({
             method : 'GET',
