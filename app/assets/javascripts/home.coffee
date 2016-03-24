@@ -42,4 +42,4 @@ $ ->
       error: (xhr, status, error) ->
         console.error(status, error)
       success: (data, status, xhr) ->
-        console.error(status, data)
+        console.log(status, data)
