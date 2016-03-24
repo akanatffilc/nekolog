@@ -66,7 +66,9 @@ body, input, button {
   background: -webkit-radial-gradient(center, ellipse cover,  #adc43a 0%,#8abe00 100%); /* Chrome10-25,Safari5.1-6 */
   background: radial-gradient(ellipse at center,  #adc43a 0%,#8abe00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#adc43a', endColorstr='#8abe00',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
+  -webkit-box-shadow: 5px 5px 10px 10px rgba(0,0,0,0.2);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    5px 5px 10px 10px rgba(0,0,0,0.2);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         5px 5px 10px 10px rgba(0,0,0,0.2);
 
   .heading {
     text-align: center;
@@ -137,6 +139,9 @@ body, input, button {
     }
   }
 }
+.login p {
+  font-size: 18px;
+}
 .login_button {
   width: 235px;
   height: 68px;
@@ -144,6 +149,9 @@ body, input, button {
   display: inline-block;
   margin: 50px 47px;
   text-align: center;
+}
+.login_button:hover {
+  opacity: 0.8;
 }
 .float {
   display: inline-block;
