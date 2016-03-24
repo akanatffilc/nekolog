@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/test'
+
   get 'home/index'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
   resources 'projects'
 
   get 'issue_types/:projectId' => 'issue_types#index'
+  put 'issue_types/:projectId' => 'issue_types#update'
 
   resources 'issues'
 
