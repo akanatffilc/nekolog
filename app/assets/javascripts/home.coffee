@@ -30,7 +30,8 @@ $ ->
           checkbox += '<br>'
           $('#issue_types').append(checkbox)
 
-  $('#save_button').click ->
+  $('.projects-save').click ->
+    console.log('clicked');
     issueTypeIds = []
     $('.issue_type:checked').each ->
       issueTypeIds.push($(@).val())
@@ -44,6 +45,7 @@ $ ->
         console.error(status, error)
       success: (xhr, status, data) ->
         console.log(status, data)
+        location.href = '/dashboard'
 
   $("#projects").change ->
     $(".inner-intro").animate
