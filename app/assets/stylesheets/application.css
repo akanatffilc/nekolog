@@ -219,6 +219,7 @@ body, input, button {
   float: right;
   width: 100px;
   font-size: 18px;
+  margin-top: 10px;
 }
 .inner-intro {
   width: 800px;
