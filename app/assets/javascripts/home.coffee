@@ -32,6 +32,7 @@ $ ->
 
   $('.projects-save').click ->
     console.log('clicked');
+    showMask();
     issueTypeIds = []
     $('.issue_type:checked').each ->
       issueTypeIds.push($(@).val())
