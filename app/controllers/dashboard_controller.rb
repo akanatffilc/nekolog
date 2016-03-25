@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
     zumi_issues = backlog.get_issues_status(params)
     # p zumi_issues
 
-	issue = [] 
+	issues = [] 
     # PHP
     # $arr = [];
     # foreach(backlog.get_issues(params) as $issue) {
@@ -34,11 +34,11 @@ class DashboardController < ApplicationController
     # 		1 => IssueObject(),
     # 	],
     # ]
-    
-    issue.push(mi_issues)
-    issue.push(chuu_issues)
-    issue.push(zumi_issues)
 
-    render :json => {'issues' => issue}
+    issues.push(mi_issues)
+    issues.push(chuu_issues)
+    issues.push(zumi_issues)
+
+    render :json => {'issues' => issues}
   end
 end
