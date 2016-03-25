@@ -10,8 +10,12 @@
 	                <% @issues[:mi].each do | miIssue | %>
 	                <li class="priority<%= miIssue['priority']['id'].to_s %>">
 	                	<span><%= miIssue['summary'] %></span>
-	                	<input class="issue-hidden" type="hidden" value="<%= miIssue['issueKey'] %>">	
-	                	<input class="issue-hidden" type="hidden" value="<%= miIssue['status'] %>">	                	
+	                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" value="<%= miIssue['issueKey'] %>">	
+	                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" value="<%= miIssue['description'] %>">	
+	                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" value="<%= miIssue['summary'] %>">	 
+	                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" value="<%= miIssue['priority']['name'] %>">	   
+	                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" value="<%= miIssue['status']['name'] %>">	 
+	                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" value="<%= miIssue['assignee']['name'] %>">	                	
 	                </li>
 	                <% end %>
 	                </ul>
@@ -22,8 +26,12 @@
 	                <% @issues[:chuu].each do | chuIssue | %>
 	                <li class="priority<%= chuIssue['priority']['id'].to_s %>">
 	                	<span><%= chuIssue['summary'] %></span>
-	                	<input class="issue-hidden" type="hidden" value="<%= chuIssue['issueKey'] %>">	
-	                	<input class="issue-hidden" type="hidden" value="<%= chuIssue['status'] %>">	                	
+	                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" value="<%= chuIssue['issueKey'] %>">	
+	                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" value="<%= chuIssue['description'] %>">	
+	                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" value="<%= chuIssue['summary'] %>">	 
+	                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" value="<%= chuIssue['priority']['name'] %>">	   
+	                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" value="<%= chuIssue['status']['name'] %>">	 
+	                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" value="<%= chuIssue['assignee']['name'] %>">	           	
 	                </li>
 	                <% end %>
 	                </ul>
@@ -34,8 +42,12 @@
 	                <% @issues[:zumi].each do | zumiIssue | %>
 	                <li class="priority<%= zumiIssue['priority']['id'].to_s %>">
 	                	<span><%= zumiIssue['summary'] %></span>
-	                	<input class="issue-hidden" type="hidden" value="<%= zumiIssue['issueKey'] %>">	
-	                	<input class="issue-hidden" type="hidden" value="<%= zumiIssue['status'] %>">	                	
+	                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" value="<%= zumiIssue['issueKey'] %>">	
+	                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" value="<%= zumiIssue['description'] %>">	
+	                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" value="<%= zumiIssue['summary'] %>">	 
+	                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" value="<%= zumiIssue['priority']['name'] %>">	   
+	                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" value="<%= zumiIssue['status']['name'] %>">	 
+	                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" value="<%= zumiIssue['assignee']['name'] %>">	                 	
 	                </li>
 	                <% end %>
 	                </ul>
@@ -81,5 +93,18 @@
 	<div class="trash-container">
 		<ul class="trash draggable"></ul>
 		<div class="undo"></div>
+	</div>
+	<div class="viewer">
+		<div class="viewer-tab"></div>
+		<div class="viewer-container">
+			<div class="row"><label>Issue Key: </label><span class="viewer-value-issueKey"></span></div>
+			<div class="row"><label>Summary </label><div class="viewer-value-summary"></div></div>
+			<div class="row"><label>Description </label><div class="viewer-value-description"></div></div>
+			<div class="row viewer-container-bottom">
+				<div class="viewer-container-left"><label>Priority: </label><span class="viewer-value-priority"></span></div>
+				<div class="viewer-container-middle"><label>Status: </label><span class="viewer-value-status"></span></div>
+				<div class="viewer-container-right"><label>Assignee: </label><span class="viewer-value-assignee"></span></div>
+			</div>
+		</div>
 	</div>
 </div>
