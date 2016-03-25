@@ -31,19 +31,19 @@ $ ->
 
     console.log(id + '=' + pos)
 
+    p = $('#projects_for_issues').val()
+    b = $(item).parent().attr('id').substring(6)
     $.ajax '/issues/' + id,
       type: 'PUT'
       dataType: 'json',
-      data: {"project_id": $('#projects_for_issues').val(), "position": pos},
+      data: {"project_id": p, "board_id": b, "position": pos},
       error: (xhr, status, error) ->
         console.error(status, error)
       success: (xhr, status, data) ->
         console.log(status, data)
         $(item).attr('data-pos', pos)
 
-  $('#projects_for_issues').change ->
-    if '' == $('#projects_for_issues').val()
-      return
+  init_backlog_issues = () ->
     $('#issues').empty()
     $.ajax '/issues/' + $('#projects_for_issues').val(),
       type: 'GET'
@@ -56,6 +56,30 @@ $ ->
         for issue in data.issues
           li = '<li id="issue_' + issue.id + '" class="issue" data-id="' + issue.id + '" data-pos="' + issue.position + '">' + issue.summary + '</li>'
           $('#issues').append(li)
+
+  init_nekolog_issues = (i) ->
+    $('#board_' + i).empty()
+    p = $('#projects_for_issues').val()
+    b = i
+    $.ajax '/issues/' + p + '/' + b,
+      type: 'GET'
+      dataType: 'json',
+      error: (xhr, status, error) ->
+        console.error(status, error)
+      success: (data, status, xhr) ->
+        console.log(status, data)
+        for issue in data.issues
+          li = '<li id="issue_' + issue.id + '" class="issue" data-id="' + issue.id + '" data-pos="' + issue.position + '">' + issue.summary + '</li>'
+          $('#board_' + i).append(li)
+
+
+  $('#projects_for_issues').change ->
+    if '' == $(@).val()
+      return
+
+    init_backlog_issues()
+    for i in [1,2,3]
+      init_nekolog_issues(i)
 
   $(".sortable").sortable({connectWith: '.sortable'})
   $(".sortable").disableSelection()
