@@ -3,58 +3,43 @@
 		<div class="title">ISSUES</div>
 		<div class="outer-slider-container">
 			<div class="up"></div>
-			<div class="container slider-container">
+			<div class="container slider-container" ng-controller="IssueCtrl">
 				<div class="group">
-					<div class="title sub">未対応</div>
-					<ul class="container draggable mi">
-						<li>a</li>
-						<li>b</li>
-						<li>c</li>
-						<li>d</li>
-						<li>e</li>
-						<li>f</li>
-						<li>g</li>
-						<li>h</li>
-						<li>i</li>
-						<li>j</li>
-						<li>k</li>
-						<li>l</li>
-					</ul>
-				</div>
-				<div class="group">
-					<div class="title sub">対応中</div>
-					<ul class="container draggable chu">
-						<li>a</li>
-						<li>b</li>
-						<li>c</li>
-						<li>d</li>
-						<li>e</li>
-						<li>f</li>
-						<li>g</li>
-						<li>h</li>
-						<li>i</li>
-						<li>j</li>
-						<li>k</li>
-						<li>l</li>
-					</ul>
-				</div>
-				<div class="group">
-					<div class="title sub">対応済み</div>
-					<ul class="container draggable zumi">
-						<li>a</li>
-						<li>b</li>
-						<li>c</li>
-						<li>d</li>
-						<li>e</li>
-						<li>f</li>
-						<li>g</li>
-						<li>h</li>
-						<li>i</li>
-						<li>j</li>
-						<li>k</li>
-						<li>l</li>
-					</ul>
-				</div>
+	                <div class="title sub">未対応</div>
+	                <ul class="container draggable">
+	                <% @issues[:mi].each do | miIssue | %>
+	                <li class="priority<%= miIssue['priority']['id'].to_s %>">
+	                	<span><%= miIssue['summary'] %></span>
+	                	<input class="issue-hidden" type="hidden" value="<%= miIssue['issueKey'] %>">	
+	                	<input class="issue-hidden" type="hidden" value="<%= miIssue['status'] %>">	                	
+	                </li>
+	                <% end %>
+	                </ul>
+	            </div>
+	            <div class="group">
+	                <div class="title sub">対応中</div>
+	                <ul class="container draggable">
+	                <% @issues[:chuu].each do | chuIssue | %>
+	                <li class="priority<%= chuIssue['priority']['id'].to_s %>">
+	                	<span><%= chuIssue['summary'] %></span>
+	                	<input class="issue-hidden" type="hidden" value="<%= chuIssue['issueKey'] %>">	
+	                	<input class="issue-hidden" type="hidden" value="<%= chuIssue['status'] %>">	                	
+	                </li>
+	                <% end %>
+	                </ul>
+	            </div>
+	            <div class="group">
+	                <div class="title sub">対応済み</div>
+	                <ul class="container draggable">
+	                <% @issues[:zumi].each do | zumiIssue | %>
+	                <li class="priority<%= zumiIssue['priority']['id'].to_s %>">
+	                	<span><%= zumiIssue['summary'] %></span>
+	                	<input class="issue-hidden" type="hidden" value="<%= zumiIssue['issueKey'] %>">	
+	                	<input class="issue-hidden" type="hidden" value="<%= zumiIssue['status'] %>">	                	
+	                </li>
+	                <% end %>
+	                </ul>
+	            </div>
 			</div>
 			<div class="down"></div>
 		</div>

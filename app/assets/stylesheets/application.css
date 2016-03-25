@@ -375,13 +375,38 @@ body, input, button {
   height: 100%;
 }
 .box .container li {
+  position: relative;
   padding: 5px 10px;
   width: 270px;
-  height: 40px;
+  height: 55px;
   background: white;
   border-radius: 5px;
   margin: 5px;
+  font-size: 13px;
+  overflow: hidden;
 }
+.box .container li.priority1::before,
+.box .container li.priority2::before,
+.box .container li.priority3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 65px;
+  width: 5px;
+  background: lightgrey;
+  border-radius: 6px 0 0 7px;
+}
+.box .container li.priority1::before {
+  background: red;
+}
+.box .container li.priority2::before {
+  background: orange;
+}
+.box .container li.priority3::before {
+  background: lightgreen;
+}
+
 .box .container li:hover {
   background: lightgrey;
   cursor:pointer;
