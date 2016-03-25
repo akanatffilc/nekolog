@@ -54,7 +54,94 @@ var util = {
 		var elw = $(el).width();
 		var elh = $(el).height();
 		var top = ( h - elh ) / 2;
-		var side = ( w - elw ) / 2;
-		$(el).css({margin: top + 'px ' + side + 'px'});
+		var left = ( w - elw ) / 2;
+		$(el).css({top: top + 'px ', left : left + 'px'});
 	}
 }
+var draggedItem;
+var intervalId;	
+var isHovering;
+var intervalDelay = 10;
+var distance;
+var tempVal;
+var o = { hovering : false };
+/* スクロールする時のprototype */
+$.fn.extend({
+	isScrollTop: function() {
+		return this.scrollTop() <= 0;
+	},
+	isScrollBottom: function() {
+		return this.scrollTop() + this.innerHeight() >= this[0].scrollHeight;
+	},
+	scrollDifference: function(distance) {
+		var canScrollDown = distance >= 0 && !this.isScrollBottom();
+		var canScrollUp = distance <= 0 && !this.isScrollTop();
+		if (canScrollDown || canScrollUp) {
+			this.scrollTop(this.scrollTop() + distance);
+			return true;
+		}
+		return false;
+	},
+});
+$(function() {
+	var sortables = $('li', '.draggable');
+	var sliderContainer = $(".slider-container");
+	/* init */
+	o.watch("hovering", function(id, oldVal, newVal){
+		if (tempVal !== newVal) {
+			if (newVal == true) {
+				intervalId = setInterval(
+					function(){ 
+						var canScroll;
+						canScroll = sliderContainer.scrollDifference(distance); 
+						if (canScroll == false) {
+							clearAllInterval();
+						}
+					}, intervalDelay
+				);
+			}
+		}
+	});
+	$('.draggable').sortable({
+	    connectWith: $('.draggable'),
+	    scroll: true, 
+	    scrollSensitivity: 100,
+	    start: function(event, ui) {
+	        draggedItem = ui.item;
+	        $(window).mousemove(moved);
+	    },
+	    stop: function(event, ui) {
+	        $(window).unbind("mousemove", moved);
+	        clearAllInterval();
+	    },
+	});
+	$(".slider-tab").click(function(){
+		$(".slider").animate({
+			width:"toggle"
+		}, 200);
+	});
+	
+	/* functions */
+	function moved(e) {
+		var offsetTop = sliderContainer.offset().top;
+        var y = e.pageY - offsetTop;
+        var h = sliderContainer.height();
+        var top = 50;
+        var bottom = h - 50;
+        $(".up, .down").hide();
+        if (y < top && !sliderContainer.isScrollTop()) {
+        	$(".up").show();
+        	distance = -10;
+        	o.hovering = true;
+        } else if (y > bottom && !sliderContainer.isScrollBottom()) {
+        	$(".down").show();
+        	distance = 10;
+        	o.hovering = true;
+        } else {
+        	o.hovering = false;
+        }
+	};
+	function clearAllInterval() {
+		for (var i = 1; i < 99999; i++) window.clearInterval(i);
+	}
+});

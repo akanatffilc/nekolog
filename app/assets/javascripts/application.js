@@ -11,9 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui/sortable
 //= require jquery_ujs
 //= require angular
 //= require angular-route
 //= require turbolinks
+//= require object.watch
 //= require core
 //= require_tree .

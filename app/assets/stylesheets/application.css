@@ -34,7 +34,9 @@ html {
   -o-background-size: cover;
   background-size: cover;
 }
-
+html,body {
+  height: 100%;
+}
 body {
   background: transparent;
   margin: 0;
@@ -192,8 +194,11 @@ body, input, button {
 }
 .header {
   height: 50px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.9);
   padding: 4px 2px;
+  background: #B8E540;
+  z-index: 160;
+  position: relative;
 }
 .logo {
   float: left;
@@ -227,6 +232,7 @@ body, input, button {
 .intro {
   z-index: 100;
   position: absolute;
+  margin: 0;
 }
 .inner-intro {
   width: 10000px;
@@ -273,6 +279,7 @@ body, input, button {
   width: 100%;
   z-index: 5;
   position: relative;
+  height: calc(100% - 58px);
 }
 .slider-tab {
   display:inline-block;
@@ -297,8 +304,8 @@ body, input, button {
   cursor:pointer;
 }
 .box {
-  width: 250px;
-  height: 500px;
+  width: 300px;
+  height: 605px;
   float: left;
   margin-right: 20px;
   position: relative;
@@ -337,9 +344,12 @@ body, input, button {
   list-style-type: none;
   width: auto;
   overflow-y: scroll;
+  background: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 10px 5px rgba(0,0,0,0.4);
 }
 .box:not(.slider) .container {
   height: calc(100% - 40px);
+  border-radius: 0 0 9px 9px;
 }
 .box .outer-slider-container {
   position: relative;
@@ -366,8 +376,11 @@ body, input, button {
 }
 .box .container li {
   padding: 5px 10px;
-    width: 230px;
-    height: 20px;
+  width: 270px;
+  height: 40px;
+  background: white;
+  border-radius: 5px;
+  margin: 5px;
 }
 .box .container li:hover {
   background: lightgrey;
