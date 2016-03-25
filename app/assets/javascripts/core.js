@@ -1,11 +1,15 @@
 $(function() {
 	//event if document loads, image load takes time so wait 1 second before repositioning mask
-	setTimeout(neko.repositionMask(), 1000);
+	neko.init();
 	$( window ).resize(function() {
 		neko.repositionMask();
 	});
 });
 var neko = {
+	init : function() {
+		this.setTrashUndoDisplay();
+		setTimeout(this.repositionMask(), 1000);
+	},
 	isMaskShowing : false,
 	mask : null,
 	setMask : function() {
@@ -45,6 +49,13 @@ var neko = {
 		this.getMask().height(h);
 		var margin = (h - this.getMask("img").height()) / 2 ;
 		this.getMask("img").css({margin: margin + 'px auto 0'});
+	},
+	setTrashUndoDisplay : function() {
+		if ($(".trash li").length > 0) {
+			$(".trash-container .undo").show();
+		} else {
+			$(".trash-container .undo").hide();
+		}
 	}
 }
 var util = {
@@ -114,11 +125,24 @@ $(function() {
 	        $(window).unbind("mousemove", moved);
 	        clearAllInterval();
 	    },
+	    receive: function(event, ui) {
+	        var sourceList = ui.sender;
+	        var targetList = $(this);
+	        if (targetList.hasClass("trash")) {
+	        	neko.setTrashUndoDisplay();
+	        }
+	    }
 	});
 	$(".slider-tab").click(function(){
 		$(".slider").animate({
 			width:"toggle"
 		}, 200);
+	});
+	$(".trash-container .undo").click(function(){
+		var removed = $(".trash li:last-child").remove();
+		console.log(removed);
+		//TODO add logic to put back whats been popped
+		neko.setTrashUndoDisplay();
 	});
 	
 	/* functions */
