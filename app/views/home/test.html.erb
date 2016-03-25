@@ -1,3 +1,6 @@
+<style>
+td { background-color: #fff; }
+</style>
 <div class="container">
   <h1>Nekolog</h1>
 
@@ -5,9 +8,14 @@
     <option value="">Choose project</option>
   </select>
 
-  <table border="1">
+  <table border="1" width="100%">
+    <tr style="color: #fff">
+      <th>Issue</th>
+      <th>TODO</th>
+      <th>DOING</th>
+      <th>DONE</th>
     <tr>
-      <td width="30%">
+      <td width="25%">
         <ul id="issues" class="sortable">
         <% if @issues.present? %>
         <% @issues.each do |issue| %>
@@ -16,8 +24,16 @@
         <% end %>
         </ul>
       </td>
-      <td width="30%" valign="top">
-        <ul id="todo" class="sortable" style="height: 100px; background-color: #fff;">
+      <td width="25%" valign="top">
+        <ul id="board_1" class="board sortable" style="height: 100px; background-color: #fff;">
+        </ul>
+      </td>
+      <td width="25%" valign="top">
+        <ul id="board_2" class="board sortable" style="height: 100px; background-color: #fff;">
+        </ul>
+      </td>
+      <td width="25%" valign="top">
+        <ul id="board_3" class="board sortable" style="height: 100px; background-color: #fff;">
         </ul>
       </td>
     </tr>
