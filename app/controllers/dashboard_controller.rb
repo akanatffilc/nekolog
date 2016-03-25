@@ -5,12 +5,25 @@ class DashboardController < ApplicationController
     mi_issues = backlog.get_issues_status(params)
     params['statusId'] = ['2']
     chuu_issues = backlog.get_issues_status(params)
-    # p chuu_issues
     params['statusId'] = ['3']
     zumi_issues = backlog.get_issues_status(params)
     # p zumi_issues
 
-	issues = [] 
+	issues = Hash.new { |issues,k| issues[k] = [] }
+	mi_issues.each do | mi | 
+		issues[:mi] << mi.summary
+	end	
+
+	chuu_issues.each do | chuu | 
+		issues[:chuu] << chuu.summary
+	end
+
+	zumi_issues.each do | zumi | 
+		issues[:zumi] << zumi.summary
+	end
+
+    # issues[1].push(chuu_issues)
+    # issues[2].push(zumi_issues)
     # PHP
     # $arr = [];
     # foreach(backlog.get_issues(params) as $issue) {
@@ -21,24 +34,22 @@ class DashboardController < ApplicationController
     # }
 
     # $arr => [
-    # 	"未対応" => [
+    # 	"1" => [
     # 		0 => IssueObject(),
     # 		1 => IssueObject(),
     # 	],
-    # 	"対応中" => [
+    # 	"2" => [
     # 		0 => IssueObject(),
     # 		1 => IssueObject(),
     # 	],
-    # 	"処理済み" => [
+    # 	"3" => [
     # 		0 => IssueObject(),
     # 		1 => IssueObject(),
     # 	],
     # ]
-
-    issues.push(mi_issues)
-    issues.push(chuu_issues)
-    issues.push(zumi_issues)
-
-    render :json => {'issues' => issues}
+    @issues = issues 
+    render 'dashboard/index'
   end
+
+
 end
