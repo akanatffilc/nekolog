@@ -14,8 +14,8 @@
  *= require_self
  */
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700);
-@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css);
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+/* @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css); */
+/* @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css); */
 
 $shadow-color: #23203b;
 $input-color: lighten(#AB9E95, 10%);
@@ -37,6 +37,7 @@ html {
 
 body {
   background: transparent;
+  margin: 0;
 }
 
 body, input, button {
@@ -62,6 +63,7 @@ body, input, button {
   top: 0;
   left: 0;
   display: none;
+  z-index: 50;
 }
 .mask img {
   display: block;
@@ -191,6 +193,7 @@ body, input, button {
 .header {
   height: 50px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 4px 2px;
 }
 .logo {
   float: left;
@@ -221,14 +224,18 @@ body, input, button {
   font-size: 18px;
   margin-top: 10px;
 }
+.intro {
+  z-index: 100;
+  position: absolute;
+}
 .inner-intro {
-  width: 800px;
+  width: 10000px;
   position: relative;
 }
 .step {
-  width: 320px;
+  width: 400px;
   float: left;
-  margin-right: 80px;
+  margin-right: 40px;
 }
 .step #projects {
   color: white;
@@ -253,7 +260,119 @@ body, input, button {
 .step .buttons .projects-save {
   float: right;
 }
+.content-pushed {
+  padding-left: 60px;
+  float:left;
+  position: relative;
+}
 
+/* nekolog */
+.content {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  z-index: 5;
+  position: relative;
+}
+.slider-tab {
+  display:inline-block;
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100px;
+  background: #f7a5ba;
+  border-right: 1px solid #006ABC;
+  border-bottom: 1px solid #006ABC;
+  border-radius: 0px 0px 10px 0px;
+  background: #00b9fb; /* Old browsers */
+  background: -moz-linear-gradient(left,  #00b9fb 0%, #0066cc 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  #00b9fb 0%,#0066cc 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  #00b9fb 0%,#0066cc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b9fb', endColorstr='#0066cc',GradientType=1 ); /* IE6-9 */
+
+}
+.slider-tab:hover {
+  opacity:0.8;
+  cursor:pointer;
+}
+.box {
+  width: 250px;
+  height: 500px;
+  float: left;
+  margin-right: 20px;
+  position: relative;
+  margin-top:10px;
+}
+.box.slider {
+  margin: 0;
+  height: 100%;
+  border-right: 1px solid #83B958;
+  box-shadow: -14px -16px 10px -10px rgba(0,0,0,0.2) inset;
+}
+.box:not(.slider) {
+  border: 1px solid #83B958;
+  border-radius: 10px;
+}
+.box:not(.slider) .title {
+  border-radius: 9px 9px 0px 0px;
+}
+.box.slider .title {
+  padding-top: 20px;
+}
+.box .title {
+  padding: 10px 0px;
+  text-align: center;
+  color: white;
+  background: #B8E540;
+  height: 20px;
+}
+.box .title.sub {
+  padding: 10px 0px;
+  background: #83B958;
+}
+.box .container {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: auto;
+  overflow-y: scroll;
+}
+.box:not(.slider) .container {
+  height: calc(100% - 40px);
+}
+.box .outer-slider-container {
+  position: relative;
+  height: calc( 100% - 48px );
+}
+.box .outer-slider-container .up,
+.box .outer-slider-container .down {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: rgba(0,0,0,0.2);
+  cursor: pointer;
+  display:none;
+}
+.box .outer-slider-container .up {
+  top: 0;
+}
+.box .outer-slider-container .down {
+  bottom: 0;
+}
+.box .slider-container {
+  height: 100%;
+}
+.box .container li {
+  padding: 5px 10px;
+    width: 230px;
+    height: 20px;
+}
+.box .container li:hover {
+  background: lightgrey;
+  cursor:pointer;
+}
 
 .float {
   display: inline-block;

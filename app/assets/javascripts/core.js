@@ -22,9 +22,22 @@ var neko = {
 	},
 	showMask : function() {
 		this.getMask().show();
+		this.getMask().css({'z-index' : 50});
+		this.getMask("img").hide();
+		this.getMask("p").hide();
 		this.repositionMask();
 	},
 	hideMask : function() {
+		this.getMask().hide();
+	},
+	showLoading : function() {
+		this.getMask().show();
+		this.getMask().css({'z-index' : 150});
+		this.getMask("img").show();
+		this.getMask("p").show();
+		this.repositionMask();
+	},
+	hideLoading : function() {
 		this.getMask().hide();
 	},
 	repositionMask : function() {
@@ -32,5 +45,16 @@ var neko = {
 		this.getMask().height(h);
 		var margin = (h - this.getMask("img").height()) / 2 ;
 		this.getMask("img").css({margin: margin + 'px auto 0'});
+	}
+}
+var util = {
+	centerize : function(el) {
+		var w = $(window).width();
+		var h = $(window).height();
+		var elw = $(el).width();
+		var elh = $(el).height();
+		var top = ( h - elh ) / 2;
+		var side = ( w - elw ) / 2;
+		$(el).css({margin: top + 'px ' + side + 'px'});
 	}
 }

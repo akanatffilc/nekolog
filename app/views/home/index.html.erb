@@ -1,22 +1,5 @@
-<div class="container">
-	<div class="neko-box intro">
-		<div class="inner-intro">
-			<div class="step step-1">
-				<h3>Select a project</h3>
-				<select id="projects" ng-controller="MainCtrl">
-				  <option value="">select</option>
-				</select>
-			</div>
-			<div class="step step-2">
-				<h3>Select issue types</h3>
-				<p>You can change which issue types to display later</p>
-				<div id="issue_types">
-				</div>
-				<div class="buttons">
-					<button class="neko-button projects-back">BACK</button>
-					<button class="neko-button projects-save">SAVE</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<%= render "home/main" %>
+<% if true %>
+  <%= render "home/initial" %>
+<% end %>
+

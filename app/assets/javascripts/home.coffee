@@ -32,7 +32,7 @@ $ ->
 
   $('.projects-save').click ->
     console.log('clicked');
-    neko.showMask();
+    neko.showLoading();
     issueTypeIds = []
     $('.issue_type:checked').each ->
       issueTypeIds.push($(@).val())
@@ -46,14 +46,15 @@ $ ->
         console.error(status, error)
       success: (xhr, status, data) ->
         console.log(status, data)
-        location.href = '/dashboard'
+        neko.hideLoading()
+        $('.intro').hide()
 
   $("#projects").change ->
     $(".inner-intro").animate
-        left: '-=400'
+        left: '-=440'
         500
 
   $(".projects-back").click ->
     $(".inner-intro").animate
-        left: '+=400'
+        left: '+=440'
         500

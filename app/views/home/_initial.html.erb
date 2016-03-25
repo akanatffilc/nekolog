@@ -1,0 +1,21 @@
+<div class="neko-box intro">
+	<div class="inner-intro">
+		<div class="step step-1">
+			<h1>Select a project</h1>
+			<select id="projects" ng-controller="MainCtrl">
+			  <option value="">select</option>
+			</select>
+		</div>
+		<div class="step step-2">
+			<h1>Select issue types</h1>
+			<p>You can change which issue types to display later</p>
+			<div id="issue_types">
+			</div>
+			<div class="buttons">
+				<button class="neko-button projects-back">BACK</button>
+				<button class="neko-button projects-save">SAVE</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>$(function(){ neko.showMask(); util.centerize($('.intro')); });</script>
