@@ -138,6 +138,26 @@ $(function() {
 			width:"toggle"
 		}, 200);
 	});
+	$(".viewer-tab").click(function(){
+		var v = $(".viewer");
+		var vc = $(".viewer-container");
+		if (vc.is(':visible')) {
+			vc.hide();
+			v.width(0);
+		} else {
+			vc.show();
+			v.width(240);
+		}
+	});
+	$(".draggable li").hover(function() {
+		var hiddens = ["issueKey","summary","description","priority","status","assignee"];
+		var attributePrefix = "viewer-value-";
+		$("input[type=hidden]",this).each(function(){
+			var className = "." + $(this).attr('viewer-value');
+			var val = $(this).val();
+			$(".viewer-container " + className).text(val);
+		});
+	});
 	$(".trash-container .undo").click(function(){
 		var removed = $(".trash li:last-child").remove();
 		console.log(removed);
