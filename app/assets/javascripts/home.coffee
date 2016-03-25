@@ -32,7 +32,7 @@ $ ->
 
   $('.projects-save').click ->
     console.log('clicked');
-    showMask();
+    neko.showMask();
     issueTypeIds = []
     $('.issue_type:checked').each ->
       issueTypeIds.push($(@).val())
