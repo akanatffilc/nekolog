@@ -1,14 +1,25 @@
 <div class="container">
   <h1>Nekolog</h1>
 
-  <select id="projects" ng-controller="MainCtrl">
+  <select id="projects_for_issues">
     <option value="">Choose project</option>
   </select>
 
-  <div id="issue_types" ng-controller="IssueCtrl">
-  </div>
-  <button type="button" id="save_button" ng-submit="doSearch()">Save</button>
-
-  <ul id="issues">
-  </ul>
+  <table border="1">
+    <tr>
+      <td width="30%">
+        <ul id="issues" class="sortable">
+        <% if @issues.present? %>
+        <% @issues.each do |issue| %>
+          <li id="issue_<%= issue.id %>" class="issue" data-id="<%= issue.id %>" data-pos="<%= issue.position %>"><%= issue.summary %></li>
+        <% end %>
+        <% end %>
+        </ul>
+      </td>
+      <td width="30%" valign="top">
+        <ul id="todo" class="sortable" style="height: 100px; background-color: #fff;">
+        </ul>
+      </td>
+    </tr>
+  </table>
 </div>

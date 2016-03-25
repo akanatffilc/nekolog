@@ -35,21 +35,25 @@ class BacklogService
   end
 
   def get_issues(params)
-    Rails.logger.debug params
     params.delete_if do |key, val|
       ['controller', 'action'].include? key
     end
     params['statusId'] = ['1', '2', '3']
+    Rails.logger.debug params
 
     @client.get_issues(params).body
   end
 
-    def get_issues_status(params)
+  def get_issues_status(params)
     Rails.logger.debug params
     params.delete_if do |key, val|
       ['controller', 'action'].include? key
     end
 
     @client.get_issues(params).body
+  end
+
+  def get_issue(id)
+    @client.get_issue(id).body
   end
 end

@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   get 'issue_types/:projectId' => 'issue_types#index'
   put 'issue_types/:projectId' => 'issue_types#update'
 
-  resources 'issues'
+  get 'issues/:projectId' => 'issues#index'
+  put 'issues/:id' => 'issues#update'
 
   resources 'dashboard'
 
