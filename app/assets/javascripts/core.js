@@ -150,13 +150,18 @@ $(function() {
 		}
 	});
 	$(".draggable li").hover(function() {
-		var hiddens = ["issueKey","summary","description","priority","status","assignee"];
-		var attributePrefix = "viewer-value-";
-		$("input[type=hidden]",this).each(function(){
-			var className = "." + $(this).attr('viewer-value');
-			var val = $(this).val();
-			$(".viewer-container " + className).text(val);
-		});
+		if (!$(".viewer").hasClass("locked")) {
+			var hiddens = ["issueKey","summary","description","priority","status","assignee"];
+			var attributePrefix = "viewer-value-";
+			$("input[type=hidden]",this).each(function(){
+				var className = "." + $(this).attr('viewer-value');
+				var val = $(this).val();
+				$(".viewer-container " + className).text(val);
+				if ($(this).attr('viewer-value') == attributePrefix + "issueKey") {
+					$(".viewer-container " + className).parent("a").attr("href", "https://globaldev.backlog.jp/view/" + val);
+				}
+			});
+		}
 	});
 	$(".trash-container .undo").click(function(){
 		var removed = $(".trash li:last-child").remove();
@@ -164,7 +169,15 @@ $(function() {
 		//TODO add logic to put back whats been popped
 		neko.setTrashUndoDisplay();
 	});
-	
+	$(window).keypress(function( event ) {
+		if ( event.which == 108 ) {
+			if ($(".viewer").hasClass("locked")){
+				$(".viewer").removeClass("locked");
+			} else {
+				$(".viewer").addClass("locked");
+			}
+		}
+	});
 	/* functions */
 	function moved(e) {
 		var offsetTop = sliderContainer.offset().top;

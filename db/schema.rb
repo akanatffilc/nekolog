@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20160325071736) do
     t.float    "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "users_id"
     t.string   "project_id"
     t.integer  "user_id"
     t.integer  "board_id"
