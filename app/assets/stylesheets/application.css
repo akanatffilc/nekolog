@@ -225,9 +225,9 @@ body, input, button {
 }
 .menu {
   float: right;
-  width: 100px;
   font-size: 18px;
-  margin-top: 10px;
+  line-height: 50px; /* same as header.height */
+  margin: 0 20px;
 }
 .intro {
   z-index: 100;

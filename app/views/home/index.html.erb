@@ -1,5 +1,3 @@
 <%= render "home/main" %>
-<% if current_user.issue_types.empty? %>
-  <%= render "home/initial" %>
-<% end %>
+<%= render :partial => "home/initial", :locals => {:show => current_user.issue_types.empty? ? "show" : "hide"} %>
 
