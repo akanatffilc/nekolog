@@ -2,11 +2,11 @@ class DashboardController < ApplicationController
   def index
     backlog = BacklogService.new(current_user, {:space_id => @space_id})
     params['statusId'] = ['1']
-    mi_issues = backlog.get_issues_status(params)
+    mi_issues = backlog.get_issues(params)
     params['statusId'] = ['2']
-    chuu_issues = backlog.get_issues_status(params)
+    chuu_issues = backlog.get_issues(params)
     params['statusId'] = ['3']
-    zumi_issues = backlog.get_issues_status(params)
+    zumi_issues = backlog.get_issues(params)
     # p zumi_issues
 
 	issues = Hash.new { |issues,k| issues[k] = [] }
