@@ -1,5 +1,5 @@
 <%= render "home/main" %>
-<% if true %>
+<% if current_user.issue_types.empty? %>
   <%= render "home/initial" %>
 <% end %>
 
