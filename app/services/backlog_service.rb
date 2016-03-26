@@ -27,7 +27,13 @@ class BacklogService
   end
 
   def get_projects
-    @client.get_projects.body
+    projects = Rails.cache.fetch('projects', expires_in: 24.hour) do
+      # singleton can't be dumped error occurs when trying to save BacklogKit::Resource instance
+      raw_data = @client.get_projects.body
+      data = raw_data.map do |d|
+        d.dup
+      end
+    end
   end
 
   def get_issue_types(projectId)
