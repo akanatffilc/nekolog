@@ -1,4 +1,7 @@
-<div class="neko-box intro">
+<div class="neko-box intro <%= show %>">
+	<div class="menu">
+		<a href="#" class="close">Close</a>
+	</div>
 	<div class="inner-intro">
 		<div class="step step-1">
 			<h1>Select a project</h1>
@@ -18,4 +21,27 @@
 		</div>
 	</div>
 </div>
-<script>$(function(){ neko.showMask(); util.centerize($('.intro')); });</script>
+<script>
+$(function(){
+	var showDialog = function () {
+		neko.showMask();
+		$('.intro').show();
+		util.centerize($('.intro'));
+	}
+
+	var hideDialog = function () {
+		$('.intro').hide();
+		neko.hideMask();
+	}
+
+	$('#settings_menu').click(function() {
+		showDialog();
+	});
+	$('.close').click(function() {
+		hideDialog();
+	});
+	if ($('.intro').hasClass('show')) {
+		showDialog();
+	}
+});
+</script>

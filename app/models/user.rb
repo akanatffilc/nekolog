@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  has_many :issue_types
+
   def self.find_for_backlog(auth)
     user = User.where(email: auth.info.email).first
 
