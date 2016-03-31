@@ -1,9 +1,13 @@
 class IssuesController < ApplicationController
   def index
+    params['projectId'] = [params[:projectId].to_i]
+    params['statusId'] = params[:statusId].map {|i| i.to_i}
+
     backlog = BacklogService.new(current_user, {:space_id => @space_id})
-    backlog_issues = backlog.get_issues({'projectId' => [params[:projectId].to_i]})
+    backlog_issues = backlog.get_issues(params)
 
     mergedIssue = Struct.new("MergedIssue", :id, :summary, :position)
+    attrs = ['summary', 'issueKey', 'description']
     issues = []
 
     if params[:boardId].present? then
@@ -23,9 +27,10 @@ class IssuesController < ApplicationController
         i.id.to_i
       end
 
-      backlog_issues.each do |issue|
-        unless issue_ids_already_exists.include? issue.id
-          issue = mergedIssue.new(issue.id, issue.summary, 0.0)
+      backlog_issues.each do |bi|
+        unless issue_ids_already_exists.include? bi.id
+          issue = Issue.new(id: bi.id, project_id: bi.projectId)
+          issue.backlog_issue = bi
           issues << issue
         end
       end

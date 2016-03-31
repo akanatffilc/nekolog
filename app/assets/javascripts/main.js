@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('nekolog' , []);
+var app = angular.module('nekolog' , ['ngCookies']);
 
 //Projects
 app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
@@ -24,20 +24,59 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 //Issue
-app.controller('IssueCtrl', ['$scope', '$http', function ($scope, $http) {
+app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
     var $uri ='/issues';
+    $scope.projects = [
+        {id: "", name: "loading..."}
+    ];
+    $scope.project = $cookies.get('issues.project');
+
+    $http.get('/projects').success(function(res) {
+        console.log(res);
+        var selectedProject = $cookies.get('issues.project');
+        var selectedIndex = 0;
+        console.log($cookies.get('issues.project'));
+        $scope.projects = res.projects.map(function (p, i) {
+            if (p.attributes.id == selectedProject) {
+                selectedIndex = i;
+                console.log(selectedIndex);
+            }
+            return {id: p.attributes.id, name: p.attributes.name};
+        });
+        $scope.project = $scope.projects[selectedIndex];
+    }).error(function(res) {
+        console.log(res);
+    });
+
+    $scope.changeProject = function() {
+        console.log($scope.project);
+        $cookies.put('issues.project', $scope.project);
+        console.log($cookies.get('issues.project'));
+        $scope.doSearch();
+    }
+
     $scope.doSearch = function() {
+        if ($scope.project == null) {
+            return;
+        }
         $http({
             method : 'GET',
-            url : $uri
+            url : $uri + '/' + $scope.project,
+            params: {"statusId[]": [1, 2, 3]}
         }).success(function(data, status, headers, config) {
-            $scope.results = data.data;
+            $scope.issues = {1: [], 2: [], 3: []};
+            data.issues.forEach(function (issue, idx) {
+                var statusId = issue.status.attributes.id
+                $scope.issues[statusId].push(issue);
+            });
             console.log(status);
             console.log(data);
         }).error(function(data, status, headers, config) {
             console.log(status);
         });
     };
+
+    $scope.doSearch();
 }]);
 
 //IssueTypes
