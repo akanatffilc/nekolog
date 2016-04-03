@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-route
+//= require angular-cookies
 //= require turbolinks
 //= require object.watch
 //= require core

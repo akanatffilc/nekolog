@@ -1,4 +1,8 @@
 class Issue < ActiveRecord::Base
+  VIRTUAL_ATTRIBUTES = %i(issueKey summary description priority status assignee)
+  attr_accessor(*VIRTUAL_ATTRIBUTES)
+
+  attr_accessor :backlog_issue
 
   def self.create_or_update(params)
     issue = Issue.where("id = ?", params[:id]).first
@@ -15,5 +19,35 @@ class Issue < ActiveRecord::Base
                            position: params[:position])
     end
     issue
+  end
+
+  def summary
+    @backlog_issue.summary
+  end
+
+  def issueKey
+    @backlog_issue.issueKey
+  end
+
+  def description
+    @backlog_issue.description
+  end
+
+  def priority
+    @backlog_issue.priority
+  end
+
+  def status
+    @backlog_issue.status
+  end
+
+  def assignee
+    @backlog_issue.assignee
+  end
+
+  def as_json(options = { })
+    super((options || { }).merge({
+      :methods => VIRTUAL_ATTRIBUTES
+    }))
   end
 end

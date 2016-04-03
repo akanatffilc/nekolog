@@ -1,32 +1,37 @@
 class IssuesController < ApplicationController
   def index
-    backlog = BacklogService.new(current_user, {:space_id => @space_id})
-    backlog_issues = backlog.get_issues({'projectId' => [params[:projectId].to_i]})
+    params[:projectId] = [params[:projectId].to_i]
+    params[:statusId] = params[:statusId].map {|i| i.to_i} if params[:statusId].present?
 
-    mergedIssue = Struct.new("MergedIssue", :id, :summary, :position)
+    backlog = BacklogService.new(current_user, {:space_id => @space_id})
+
     issues = []
 
-    if params[:boardId].present? then
-      nekolog_issues = Issue.where('project_id = ? and board_id = ?', params[:projectId], params[:boardId])
-      nekolog_issues.each do |ni|
-        backlog_issue = nil
-        backlog_issues.each do |bi|
-          backlog_issue = bi if bi.id == ni.id
+    board_type = params[:type]
+    params.delete :type
+    backlog_issues = backlog.get_issues(params)
+    nekolog_issues = Issue.where('project_id = ?', params[:projectId])
+    issue_ids_already_exists = nekolog_issues.map do |i|
+      i.id.to_i
+    end
+
+    if board_type == 'issues' then
+      backlog_issues.each do |bi|
+        unless issue_ids_already_exists.include? bi.id
+          issue = Issue.new(id: bi.id, project_id: bi.projectId)
+          issue.backlog_issue = bi
+          issues << issue
         end
-        issue = mergedIssue.new(ni.id, backlog_issue.summary, ni.position)
-        issues << issue
       end
     else
-      nekolog_issues = Issue.where('project_id = ?', params[:projectId])
-
-      issue_ids_already_exists = nekolog_issues.map do |i|
-        i.id.to_i
-      end
-
-      backlog_issues.each do |issue|
-        unless issue_ids_already_exists.include? issue.id
-          issue = mergedIssue.new(issue.id, issue.summary, 0.0)
-          issues << issue
+      backlog_issues.each do |bi|
+        if issue_ids_already_exists.include? bi.id
+          nekolog_issues.each do |ni|
+            if ni.id == bi.id
+              ni.backlog_issue = bi
+              issues << ni
+            end
+          end
         end
       end
     end

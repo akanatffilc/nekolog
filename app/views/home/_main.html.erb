@@ -1,55 +1,54 @@
-<div class="content">
-	<div class="box slider">
+<div class="content" ng-controller="MainCtrl">
+	<div class="box slider" ng-controller="IssueCtrl">
 		<div class="title">ISSUES</div>
 		<div class="outer-slider-container">
 			<div class="up"></div>
-			<div class="container slider-container" ng-controller="IssueCtrl">
+			<div class="container slider-container">
+				<div class="projects-container">
+					<select ng-model="project" ng-change="changeProject()">
+						<option ng-selected="project.id == p.id" ng-repeat="p in projects" ng-value="p.id">{{p.name}}</option>
+					</select>
+				</div>
 				<div class="group">
 	                <div class="title sub">未対応</div>
 	                <ul class="container draggable">
-	                <% @issues[:mi].each do | miIssue | %>
-	                <li class="priority<%= miIssue['priority']['id'].to_s %>">
-	                	<span><%= miIssue['summary'] %></span>
-	                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" value="<%= miIssue['issueKey'] %>">	
-	                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" value="<%= miIssue['description'] %>">	
-	                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" value="<%= miIssue['summary'] %>">	 
-	                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" value="<%= miIssue['priority']['name'] %>">	   
-	                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" value="<%= miIssue['status']['name'] %>">	 
-	                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" value="<%= miIssue['assignee']['name'] %>">	                	
-	                </li>
-	                <% end %>
+	                	<li ng-repeat="i in issues[1]" class="priority{{i.priority.attributes.id}}">
+	                		<span>{{i.summary}}</span>
+		                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" ng-value="i.issueKey">
+		                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" ng-value="i.description">
+		                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" ng-value="i.summary">
+		                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" ng-value="i.priority.attributes.name">
+		                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" ng-value="i.status.attributes.name">
+		                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" ng-value="i.assignee.attributes.name">
+	                	</li>
 	                </ul>
 	            </div>
 	            <div class="group">
 	                <div class="title sub">対応中</div>
 	                <ul class="container draggable">
-	                <% @issues[:chuu].each do | chuIssue | %>
-	                <li class="priority<%= chuIssue['priority']['id'].to_s %>">
-	                	<span><%= chuIssue['summary'] %></span>
-	                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" value="<%= chuIssue['issueKey'] %>">	
-	                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" value="<%= chuIssue['description'] %>">	
-	                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" value="<%= chuIssue['summary'] %>">	 
-	                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" value="<%= chuIssue['priority']['name'] %>">	   
-	                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" value="<%= chuIssue['status']['name'] %>">	 
-	                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" value="<%= chuIssue['assignee']['name'] %>">	           	
-	                </li>
-	                <% end %>
+	                	<li ng-repeat="i in issues[2]" class="priority{{i.priority.attributes.id}}">
+	                		<span>{{i.summary}}</span>
+		                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" ng-value="i.issueKey">
+		                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" ng-value="i.description">
+		                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" ng-value="i.summary">
+		                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" ng-value="i.priority.attributes.name">
+		                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" ng-value="i.status.attributes.name">
+		                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" ng-value="i.assignee.attributes.name">
+	                	</li>
 	                </ul>
 	            </div>
 	            <div class="group">
 	                <div class="title sub">対応済み</div>
 	                <ul class="container draggable">
-	                <% @issues[:zumi].each do | zumiIssue | %>
-	                <li class="priority<%= zumiIssue['priority']['id'].to_s %>">
-	                	<span><%= zumiIssue['summary'] %></span>
-	                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" value="<%= zumiIssue['issueKey'] %>">	
-	                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" value="<%= zumiIssue['description'] %>">	
-	                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" value="<%= zumiIssue['summary'] %>">	 
-	                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" value="<%= zumiIssue['priority']['name'] %>">	   
-	                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" value="<%= zumiIssue['status']['name'] %>">	 
-	                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" value="<%= zumiIssue['assignee']['name'] %>">	                 	
-	                </li>
-	                <% end %>
+	                	<li ng-repeat="i in issues[3]" class="priority{{i.priority.attributes.id}}">
+	                		<span>{{i.summary}}</span>
+		                	<input viewer-value="viewer-value-issueKey" class="issue-hidden" type="hidden" ng-value="i.issueKey">
+		                	<input viewer-value="viewer-value-description" class="issue-hidden" type="hidden" ng-value="i.description">
+		                	<input viewer-value="viewer-value-summary" class="issue-hidden" type="hidden" ng-value="i.summary">
+		                	<input viewer-value="viewer-value-priority" class="issue-hidden" type="hidden" ng-value="i.priority.attributes.name">
+		                	<input viewer-value="viewer-value-status" class="issue-hidden" type="hidden" ng-value="i.status.attributes.name">
+		                	<input viewer-value="viewer-value-assignee" class="issue-hidden" type="hidden" ng-value="i.assignee.attributes.name">
+	                	</li>
 	                </ul>
 	            </div>
 			</div>
@@ -58,35 +57,28 @@
 	</div>
 	<div class="content-pushed">
 		<a class="slider-tab rotate"></a>
-		<div class="box">
-			<div class="title">TODO</div>
+		<div class="box" ng-controller="IssuesCtrl">
+			<div class="title" ng-init="init('todo', 1)">TODO</div>
 			<ul class="container draggable todo">
-				<li>a</li>
-				<li>b</li>
-				<li>c</li>
-				<li>d</li>
-				<li>e</li>
-				<li>f</li>
-				<li>g</li>
-				<li>h</li>
-				<li>i</li>
-				<li>j</li>
-				<li>k</li>
-				<li>l</li>
-				<li>m</li>
-				<li>n</li>
-				<li>o</li>
-				<li>p</li>
+      	<li ng-repeat="i in issues" class="priority{{i.priority.attributes.id}}">
+      		<span>{{i.summary}}</span>
+      	</li>
 			</ul>
 		</div>
-		<div class="box">
-			<div class="title">DOING</div>
+		<div class="box" ng-controller="IssuesCtrl">
+			<div class="title" ng-init="init('doing', 2)">DOING</div>
 			<ul class="container draggable doing">
+      	<li ng-repeat="i in issues" class="priority{{i.priority.attributes.id}}">
+      		<span>{{i.summary}}</span>
+      	</li>
 			</ul>
 		</div>
-		<div class="box">
-			<div class="title">DONE</div>
+		<div class="box" ng-controller="IssuesCtrl">
+			<div class="title" ng-init="init('done', 3)">DONE</div>
 			<ul class="container draggable done">
+      	<li ng-repeat="i in issues" class="priority{{i.priority.attributes.id}}">
+      		<span>{{i.summary}}</span>
+      	</li>
 			</ul>
 		</div>
 	</div>

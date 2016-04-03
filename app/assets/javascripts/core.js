@@ -149,7 +149,7 @@ $(function() {
 			v.width(240);
 		}
 	});
-	$(".draggable li").hover(function() {
+	$(document).on('mouseenter', '.draggable li', function() {
 		if (!$(".viewer").hasClass("locked")) {
 			var hiddens = ["issueKey","summary","description","priority","status","assignee"];
 			var attributePrefix = "viewer-value-";

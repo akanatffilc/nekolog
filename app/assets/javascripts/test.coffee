@@ -45,9 +45,10 @@ $ ->
 
   init_backlog_issues = () ->
     $('#issues').empty()
-    $.ajax '/issues/' + $('#projects_for_issues').val(),
+    $.ajax '/issues',
       type: 'GET'
       dataType: 'json',
+      data: {"projectId": $('#projects_for_issues').val(), "type": "issues"}
       error: (xhr, status, error) ->
         console.error(status, error)
       success: (data, status, xhr) ->
@@ -57,13 +58,16 @@ $ ->
           li = '<li id="issue_' + issue.id + '" class="issue" data-id="' + issue.id + '" data-pos="' + issue.position + '">' + issue.summary + '</li>'
           $('#issues').append(li)
 
+  types = {1: "todo", 2: "doing", 3: "done"}
+
   init_nekolog_issues = (i) ->
     $('#board_' + i).empty()
     p = $('#projects_for_issues').val()
     b = i
-    $.ajax '/issues/' + p + '/' + b,
+    $.ajax '/issues',
       type: 'GET'
       dataType: 'json',
+      data: {"projectId": p, "statusId": [b], "type": types[i]}
       error: (xhr, status, error) ->
         console.error(status, error)
       success: (data, status, xhr) ->
