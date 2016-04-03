@@ -23,14 +23,12 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
 }]);
 
-//Issue
-app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
-    var $uri ='/issues';
+// Main
+app.controller('MainCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
     $scope.projects = [
         {id: "", name: "loading..."}
     ];
     $scope.project = $cookies.get('issues.project');
-
     $http.get('/projects').success(function(res) {
         console.log(res);
         var selectedProject = $cookies.get('issues.project');
@@ -47,6 +45,12 @@ app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $h
     }).error(function(res) {
         console.log(res);
     });
+}]);
+
+//Issue
+app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+    var $uri ='/issues';
+    $scope.issues = {1: [], 2: [], 3: []};
 
     $scope.changeProject = function() {
         console.log($scope.project);
@@ -61,10 +65,9 @@ app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $h
         }
         $http({
             method : 'GET',
-            url : $uri + '/' + $scope.project,
-            params: {"statusId[]": [1, 2, 3]}
+            url : '/issues',
+            params: {"type": "issues", "projectId": $scope.project, "statusId[]": [1, 2, 3]}
         }).success(function(data, status, headers, config) {
-            $scope.issues = {1: [], 2: [], 3: []};
             data.issues.forEach(function (issue, idx) {
                 var statusId = issue.status.attributes.id
                 $scope.issues[statusId].push(issue);
@@ -77,6 +80,37 @@ app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $h
     };
 
     $scope.doSearch();
+}]);
+
+app.controller('IssuesCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.issues = [];
+    $scope.changeProject = function() {
+        $scope.doSearch();
+    }
+    $scope.init = function(type, status) {
+
+        $scope.doSearch(type, status);
+
+    }
+
+    $scope.doSearch = function(type, status) {
+        if ($scope.project == null) {
+            return;
+        }
+        $http({
+            method : 'GET',
+            url : '/issues',
+            params: {"type": type, "projectId": $scope.project, "statusId[]": [status]}
+        }).success(function(data, status, headers, config) {
+            data.issues.forEach(function (issue, idx) {
+                $scope.issues.push(issue);
+            });
+            console.log(status);
+            console.log(data);
+        }).error(function(data, status, headers, config) {
+            console.log(status);
+        });
+    }
 }]);
 
 //IssueTypes
