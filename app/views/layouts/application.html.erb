@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html ng-app="nekolog">
-<head>
-  <title>Nekolog</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<div class="header">
-	<div class="logo">
-		<img src="/images/logo.png" />
-	</div>
-	<% if user_signed_in? %>
-	<div class="menu">
-    <%= link_to "Settings", '#', {:id => 'settings_menu'} %>
-		<%= link_to "Sign out", destroy_user_session_path, {method: :delete, :class=>"logout"} %>
-	</div>
-	<% end %>
-</div>
+	<head>
+	  <title>Nekolog</title>
+	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div clas="main" ng-controller="MainCtrl">
+			<div class="header">
+				<div class="logo">
+					<img src="/images/logo.png" />
+				</div>
+				<div class="projects-container">
+					<select ng-model="project" ng-change="changeProject()" ng-options='p.name for p in projects track by p.id'>
+						<option value="">-- select project --</option>
+					</select>
+				</div>
+				<% if user_signed_in? %>
+				<div class="menu">
+			    <%= link_to "Settings", '#', {:id => 'settings_menu'} %>
+					<%= link_to "Sign out", destroy_user_session_path, {method: :delete, :class=>"logout"} %>
+				</div>
+				<% end %>
+			</div>
 
-<%= yield %>
+			<%= yield %>
 
-<div class="mask"><img src="/images/cat-waiting.gif" /><p>loading...</></div>
-</body>
+			<div class="mask"><img src="/images/cat-waiting.gif" /><p>loading...</></div>
+		</div>
+	</body>
 </html>

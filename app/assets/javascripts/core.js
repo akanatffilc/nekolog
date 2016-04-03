@@ -7,48 +7,48 @@ $(function() {
 });
 var neko = {
 	init : function() {
-		this.setTrashUndoDisplay();
-		setTimeout(this.repositionMask(), 1000);
+		neko.setTrashUndoDisplay();
+		setTimeout(neko.repositionMask(), 1000);
 	},
 	isMaskShowing : false,
 	mask : null,
 	setMask : function() {
-		this.mask = $(".mask");
+		neko.mask = $(".mask");
 	},
 	getMask : function(el) {
-		if (this.mask == null) {
-			this.setMask();
+		if (neko.mask == null) {
+			neko.setMask();
 		}
 		if (el != null) {
-			return $(el, this.mask);
+			return $(el, neko.mask);
 		}
-		return this.mask;
+		return neko.mask;
 	},
 	showMask : function() {
-		this.getMask().show();
-		this.getMask().css({'z-index' : 50});
-		this.getMask("img").hide();
-		this.getMask("p").hide();
-		this.repositionMask();
+		neko.getMask().show();
+		neko.getMask().css({'z-index' : 50});
+		neko.getMask("img").hide();
+		neko.getMask("p").hide();
+		neko.repositionMask();
 	},
 	hideMask : function() {
-		this.getMask().hide();
+		neko.getMask().hide();
 	},
 	showLoading : function() {
-		this.getMask().show();
-		this.getMask().css({'z-index' : 150});
-		this.getMask("img").show();
-		this.getMask("p").show();
-		this.repositionMask();
+		neko.getMask().show();
+		neko.getMask().css({'z-index' : 200});
+		neko.getMask("img").show();
+		neko.getMask("p").show();
+		neko.repositionMask();
 	},
 	hideLoading : function() {
-		this.getMask().hide();
+		neko.getMask().hide();
 	},
 	repositionMask : function() {
 		var h = $(window).height();
-		this.getMask().height(h);
-		var margin = (h - this.getMask("img").height()) / 2 ;
-		this.getMask("img").css({margin: margin + 'px auto 0'});
+		neko.getMask().height(h);
+		var margin = (h - neko.getMask("img").height()) / 2 ;
+		neko.getMask("img").css({margin: margin + 'px auto 0'});
 	},
 	setTrashUndoDisplay : function() {
 		if ($(".trash li").length > 0) {

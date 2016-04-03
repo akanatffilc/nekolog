@@ -14,8 +14,6 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             url : $uri
         }).success(function(data, status, headers, config) {
             $scope.results = data.data;
-            console.log(status);
-            console.log(data);
         }).error(function(data, status, headers, config) {
             console.log(status);
         });
@@ -26,18 +24,14 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 // Main
 app.controller('MainCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
     $scope.projects = [
-        {id: "", name: "loading..."}
     ];
     $scope.project = $cookies.get('issues.project');
     $http.get('/projects').success(function(res) {
-        console.log(res);
         var selectedProject = $cookies.get('issues.project');
         var selectedIndex = 0;
-        console.log($cookies.get('issues.project'));
         $scope.projects = res.projects.map(function (p, i) {
             if (p.attributes.id == selectedProject) {
                 selectedIndex = i;
-                console.log(selectedIndex);
             }
             return {id: p.attributes.id, name: p.attributes.name};
         });
@@ -52,30 +46,36 @@ app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $h
     var $uri ='/issues';
     $scope.issues = {1: [], 2: [], 3: []};
 
-    $scope.changeProject = function() {
-        console.log($scope.project);
-        $cookies.put('issues.project', $scope.project);
-        console.log($cookies.get('issues.project'));
+    var appElement = document.querySelector('[ng-controller=MainCtrl]');
+    var $projectScope = angular.element(appElement).scope();
+    $projectScope.changeProject = function() {
+        neko.showLoading();
+        $cookies.put('issues.project', $projectScope.project.id);
+        console.log("$cookies.put('issues.project', $projectScope.project.id)", $cookies.get('issues.project'));
         $scope.doSearch();
     }
 
     $scope.doSearch = function() {
-        if ($scope.project == null) {
+        if ($projectScope.project == null) {
             return;
         }
+        neko.showLoading();
         $http({
             method : 'GET',
             url : '/issues',
-            params: {"type": "issues", "projectId": $scope.project, "statusId[]": [1, 2, 3]}
+            params: {"type": "issues", "projectId": $projectScope.project, "statusId[]": [1, 2, 3]}
         }).success(function(data, status, headers, config) {
             data.issues.forEach(function (issue, idx) {
                 var statusId = issue.status.attributes.id
                 $scope.issues[statusId].push(issue);
             });
+            console.log("$scope.issues", $scope.issues);
             console.log(status);
             console.log(data);
+            neko.hideLoading();
         }).error(function(data, status, headers, config) {
             console.log(status);
+            neko.hideLoading();
         });
     };
 
@@ -97,6 +97,7 @@ app.controller('IssuesCtrl', ['$scope', '$http', function ($scope, $http) {
         if ($scope.project == null) {
             return;
         }
+        neko.showLoading();
         $http({
             method : 'GET',
             url : '/issues',
@@ -107,8 +108,10 @@ app.controller('IssuesCtrl', ['$scope', '$http', function ($scope, $http) {
             });
             console.log(status);
             console.log(data);
+            neko.hideLoading();
         }).error(function(data, status, headers, config) {
             console.log(status);
+            neko.hideLoading();
         });
     }
 }]);

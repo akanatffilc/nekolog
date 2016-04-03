@@ -1,14 +1,9 @@
-<div class="content" ng-controller="MainCtrl">
+<div class="content">
 	<div class="box slider" ng-controller="IssueCtrl">
 		<div class="title">ISSUES</div>
 		<div class="outer-slider-container">
 			<div class="up"></div>
 			<div class="container slider-container">
-				<div class="projects-container">
-					<select ng-model="project" ng-change="changeProject()">
-						<option ng-selected="project.id == p.id" ng-repeat="p in projects" ng-value="p.id">{{p.name}}</option>
-					</select>
-				</div>
 				<div class="group">
 	                <div class="title sub">未対応</div>
 	                <ul class="container draggable">
