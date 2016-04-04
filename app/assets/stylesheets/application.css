@@ -46,6 +46,16 @@ body, input, button {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+select {
+  position:relative;
+  color: white;
+  font-size: 15px;
+  background: #f68930;
+  height: 40px;
+  border-color: #ffaf6d;
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+  //-webkit-appearance: none;
+}
 @mixin normalize-input {
   display: block;
   width: auto;
@@ -223,6 +233,10 @@ body, input, button {
   -ms-transition: all 3s ease;
   transition: all 3s ease;
 }
+.projects-container {
+  margin: 4px 0 0 15px;
+  float: left;
+}
 .menu {
   float: right;
   font-size: 18px;
@@ -244,12 +258,6 @@ body, input, button {
   margin-right: 40px;
 }
 .step #projects {
-  color: white;
-  font-size: 15px;
-  background: #f68930;
-  height: 40px;
-  border-color: #ffaf6d;
-  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
   margin-top: 27px;
 }
 .step #issue_types {
