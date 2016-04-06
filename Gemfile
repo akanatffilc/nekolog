@@ -41,12 +41,6 @@ gem 'omniauth-backlog'
 # Backlog
 gem 'backlog_kit'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-angular'
-  gem "rails-assets-angular-route" , "1.5.0"
-  gem "rails-assets-angular-cookies", "1.5.0"
-end
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

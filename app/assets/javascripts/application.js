@@ -16,6 +16,7 @@
 //= require angular
 //= require angular-route
 //= require angular-cookies
+//= require angular-ui-sortable
 //= require turbolinks
 //= require object.watch
 //= require core

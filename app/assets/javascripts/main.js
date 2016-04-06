@@ -1,14 +1,13 @@
 'use strict';
 
-var app = angular.module('nekolog' , ['ngCookies']);
+var app = angular.module('nekolog' , ['ngCookies', 'ui.sortable']);
 
 //Projects
-app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+app.controller('SettingCtrl', ['$scope', '$http', function($scope, $http) {
 
     var $uri ='/projects';
 
     $scope.doSearch = function() {
-
         $http({
             method : 'GET',
             url : $uri
@@ -20,15 +19,26 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             console.log(status);
         });
     };
-
 }]);
 
-// Main
+// Issues
 app.controller('MainCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+
     $scope.projects = [
         {id: "", name: "loading..."}
     ];
     $scope.project = $cookies.get('issues.project');
+    $scope.issues = {1: [], 2: [], 3: []};
+    $scope.todoIssues = [];
+    $scope.doingIssues = [];
+    $scope.doneIssues = [];
+    $scope.sortableOptions = {
+        connectWith: angular.element('.issues'),
+        update: function(e, ui) {
+            console.log($scope.todoIssues, $scope.doingIssues, $scope.doneIssues);
+        }
+    }
+
     $http.get('/projects').success(function(res) {
         console.log(res);
         var selectedProject = $cookies.get('issues.project');
@@ -45,24 +55,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$cookies', function ($scope, $ht
     }).error(function(res) {
         console.log(res);
     });
-}]);
-
-//Issue
-app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
-    var $uri ='/issues';
-    $scope.issues = {1: [], 2: [], 3: []};
 
     $scope.changeProject = function() {
         console.log($scope.project);
         $cookies.put('issues.project', $scope.project);
         console.log($cookies.get('issues.project'));
-        $scope.doSearch();
+        $scope.getIssues();
     }
 
-    $scope.doSearch = function() {
-        if ($scope.project == null) {
-            return;
-        }
+    $scope.getIssues = function() {
         $http({
             method : 'GET',
             url : '/issues',
@@ -77,39 +78,44 @@ app.controller('IssueCtrl', ['$scope', '$http', '$cookies', function ($scope, $h
         }).error(function(data, status, headers, config) {
             console.log(status);
         });
-    };
-
-    $scope.doSearch();
-}]);
-
-app.controller('IssuesCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.issues = [];
-    $scope.changeProject = function() {
-        $scope.doSearch();
-    }
-    $scope.init = function(type, status) {
-
-        $scope.doSearch(type, status);
-
-    }
-
-    $scope.doSearch = function(type, status) {
-        if ($scope.project == null) {
-            return;
-        }
         $http({
             method : 'GET',
             url : '/issues',
-            params: {"type": type, "projectId": $scope.project, "statusId[]": [status]}
+            params: {"type": "todo", "projectId": $scope.project, "statusId[]": [1]}
         }).success(function(data, status, headers, config) {
-            data.issues.forEach(function (issue, idx) {
-                $scope.issues.push(issue);
-            });
+            $scope.todoIssues = data.issues
             console.log(status);
             console.log(data);
         }).error(function(data, status, headers, config) {
             console.log(status);
         });
+        $http({
+            method : 'GET',
+            url : '/issues',
+            params: {"type": "doing", "projectId": $scope.project, "statusId[]": [2]}
+        }).success(function(data, status, headers, config) {
+            $scope.doingIssues = data.issues;
+            console.log(status);
+            console.log(data);
+        }).error(function(data, status, headers, config) {
+            console.log(status);
+        });
+        $http({
+            method : 'GET',
+            url : '/issues',
+            params: {"type": "done", "projectId": $scope.project, "statusId[]": [3]}
+        }).success(function(data, status, headers, config) {
+            $scope.doneIssues = data.issues;
+            console.log(status);
+            console.log(data);
+        }).error(function(data, status, headers, config) {
+            console.log(status);
+        });
+    };
+
+    console.log('project', $scope.project);
+    if ($scope.project != null) {
+        $scope.getIssues();
     }
 }]);
 

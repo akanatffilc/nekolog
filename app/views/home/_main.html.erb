@@ -1,5 +1,5 @@
 <div class="content" ng-controller="MainCtrl">
-	<div class="box slider" ng-controller="IssueCtrl">
+	<div class="box slider">
 		<div class="title">ISSUES</div>
 		<div class="outer-slider-container">
 			<div class="up"></div>
@@ -57,26 +57,26 @@
 	</div>
 	<div class="content-pushed">
 		<a class="slider-tab rotate"></a>
-		<div class="box" ng-controller="IssuesCtrl">
-			<div class="title" ng-init="init('todo', 1)">TODO</div>
-			<ul class="container draggable todo">
-      	<li ng-repeat="i in issues" class="priority{{i.priority.attributes.id}}">
+		<div class="box">
+			<div class="title">TODO</div>
+			<ul class="container issues todo" ui-sortable="sortableOptions" ng-model="todoIssues">
+      	<li ng-repeat="i in todoIssues" class="priority{{i.priority.attributes.id}}">
       		<span>{{i.summary}}</span>
       	</li>
 			</ul>
 		</div>
-		<div class="box" ng-controller="IssuesCtrl">
-			<div class="title" ng-init="init('doing', 2)">DOING</div>
-			<ul class="container draggable doing">
-      	<li ng-repeat="i in issues" class="priority{{i.priority.attributes.id}}">
+		<div class="box">
+			<div class="title">DOING</div>
+			<ul class="container issues doing" ui-sortable="sortableOptions" ng-model="doingIssues">
+      	<li ng-repeat="i in doingIssues" class="priority{{i.priority.attributes.id}}">
       		<span>{{i.summary}}</span>
       	</li>
 			</ul>
 		</div>
-		<div class="box" ng-controller="IssuesCtrl">
-			<div class="title" ng-init="init('done', 3)">DONE</div>
-			<ul class="container draggable done">
-      	<li ng-repeat="i in issues" class="priority{{i.priority.attributes.id}}">
+		<div class="box">
+			<div class="title">DONE</div>
+			<ul class="container issues done" ui-sortable="sortableOptions" ng-model="doneIssues">
+      	<li ng-repeat="i in doneIssues" class="priority{{i.priority.attributes.id}}">
       		<span>{{i.summary}}</span>
       	</li>
 			</ul>
